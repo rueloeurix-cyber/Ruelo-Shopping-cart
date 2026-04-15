@@ -1,1 +1,6 @@
-
+Which part of the project you used AI for?
+Some of the if statements in the while loop and foreach loop.
+Why did you use AI in those parts? What prompts/question you asked?
+I couldn't progress any further and didn't understand certain functions , what function can i use to fix a certain problem for example, when the user enters a letter  instead of numbers.
+What you changed or improved after using AI?
+I've used classes in separate  files and fixed the bug where when all the stocks are bought the user gets stuck in the menu.
