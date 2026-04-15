@@ -1,4 +1,10 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace CSharpShell;
+
+using System;
 
 class Program
 {
