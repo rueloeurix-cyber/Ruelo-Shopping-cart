@@ -6,10 +6,10 @@ class Program
     {
         Product[] products = new Product[]
         {
-            new Product(1, "Laptop", 30000, 5),
-            new Product(2, "Mouse", 500, 10),
-            new Product(3, "Keyboard", 1500, 7),
-            new Product(4, "Headset", 2000, 3)
+            new Product(1, "Sofa", 30000, 5),
+            new Product(2, "Cushion", 500, 10),
+            new Product(3, "Microwave", 1500, 7),
+            new Product(4, "Mini fridge", 2000, 3)
         };
 
         CartItem[] cart = new CartItem[10];
@@ -19,6 +19,22 @@ class Program
 
         while (continueShopping)
         {
+            bool allOutOfStock = true;
+
+            foreach (var p in products)
+            {
+                if (p.RemainingStock > 0)
+                {
+                    allOutOfStock = false;
+                    break;
+                }
+            }
+
+            if (allOutOfStock)
+            {
+                Console.WriteLine("\nAll items are out of stock.");
+                break;
+            }
             Console.WriteLine("\n--- STORE MENU ---");
             foreach (var p in products)
                 p.DisplayProduct();
