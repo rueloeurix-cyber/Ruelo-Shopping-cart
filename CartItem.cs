@@ -1,3 +1,9 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace CSharpShell;
+
 public class CartItem
 {
     public Product Product;
