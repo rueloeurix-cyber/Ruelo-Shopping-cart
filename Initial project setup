@@ -1,0 +1,180 @@
+# Ruelo_Eurix_ShoppingCartActivity
+
+using System;
+
+class Product
+{
+    public int Id;
+    public string Name;
+    public double Price;
+    public int RemainingStock;
+
+    public Product(int id, string name, double price, int stock)
+    {
+        Id = id;
+        Name = name;
+        Price = price;
+        RemainingStock = stock;
+    }
+
+    public void DisplayProduct()
+    {
+        Console.WriteLine($"{Id}. {Name} - ₱{Price} (Stock: {RemainingStock})");
+    }
+
+    public bool HasEnoughStock(int quantity)
+    {
+        return quantity <= RemainingStock;
+    }
+
+    public double GetItemTotal(int quantity)
+    {
+        return Price * quantity;
+    }
+
+    public void DeductStock(int quantity)
+    {
+        RemainingStock -= quantity;
+    }
+}
+
+class CartItem
+{
+    public Product Product;
+    public int Quantity;
+
+    public CartItem(Product product, int quantity)
+    {
+        Product = product;
+        Quantity = quantity;
+    }
+
+    public double GetSubtotal()
+    {
+        return Product.Price * Quantity;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Product[] products = new Product[]
+        {
+            new Product(1, "Laptop", 30000, 5),
+            new Product(2, "Mouse", 500, 10),
+            new Product(3, "Keyboard", 1500, 7),
+            new Product(4, "Headset", 2000, 3)
+        };
+
+        CartItem[] cart = new CartItem[10];
+        int cartCount = 0;
+
+        bool continueShopping = true;
+
+        while (continueShopping)
+        {
+            Console.WriteLine("\n--- STORE MENU ---");
+            foreach (var p in products)
+                p.DisplayProduct();
+
+            Console.Write("Enter product number: ");
+            if (!int.TryParse(Console.ReadLine(), out int productChoice))
+            {
+                Console.WriteLine("Invalid input. Please enter a number.");
+                continue;
+            }
+
+            if (productChoice < 1 || productChoice > products.Length)
+            {
+                Console.WriteLine("Invalid product number.");
+                continue;
+            }
+
+            Product selectedProduct = products[productChoice - 1];
+
+            if (selectedProduct.RemainingStock == 0)
+            {
+                Console.WriteLine("Out of stock.");
+                continue;
+            }
+
+            Console.Write("Enter quantity: ");
+            if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+            {
+                Console.WriteLine("Invalid quantity.");
+                continue;
+            }
+
+            if (!selectedProduct.HasEnoughStock(quantity))
+            {
+                Console.WriteLine("Not enough stock available.");
+                continue;
+            }
+
+            // Check duplicate
+            bool found = false;
+            for (int i = 0; i < cartCount; i++)
+            {
+                if (cart[i].Product.Id == selectedProduct.Id)
+                {
+                    cart[i].Quantity += quantity;
+                    found = true;
+                    break;
+                }
+            }
+
+            // Add new item
+            if (!found)
+            {
+                if (cartCount >= cart.Length)
+                {
+                    Console.WriteLine("Cart is full.");
+                    continue;
+                }
+
+                cart[cartCount++] = new CartItem(selectedProduct, quantity);
+            }
+
+            selectedProduct.DeductStock(quantity);
+            Console.WriteLine("Item added to cart.");
+
+            Console.Write("Add another item? (Y/N): ");
+            string choice = Console.ReadLine().ToUpper();
+            if (choice != "Y")
+                continueShopping = false;
+        }
+
+        // Receipt
+        Console.WriteLine("\n--- RECEIPT ---");
+        double grandTotal = 0;
+
+        for (int i = 0; i < cartCount; i++)
+        {
+            var item = cart[i];
+            double subtotal = item.GetSubtotal();
+            grandTotal += subtotal;
+
+            Console.WriteLine($"{item.Product.Name} x{item.Quantity} = ₱{subtotal}");
+        }
+
+        Console.WriteLine($"Grand Total: ₱{grandTotal}");
+
+        double discount = 0;
+        if (grandTotal >= 5000)
+        {
+            discount = grandTotal * 0.10;
+            Console.WriteLine($"Discount (10%): ₱{discount}");
+        }
+
+        double finalTotal = grandTotal - discount;
+        Console.WriteLine($"Final Total: ₱{finalTotal}");
+
+        // Show updated stock
+        Console.WriteLine("\n--- UPDATED STOCK ---");
+        foreach (var p in products)
+            p.DisplayProduct();
+
+        Console.WriteLine("\nThank you for shopping!");
+    }
+}
