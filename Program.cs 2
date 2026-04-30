@@ -174,12 +174,12 @@ class Program
 
                             if (again == "y")
                             {
-                                // continue normally (stay in loop)
+                                
                                 break;
                             }
                             else if (again == "maybe")
                             {
-                                // restart from category selection
+                                
                                 Console.WriteLine("Returning to category selection...");
                                 break;
                             }
