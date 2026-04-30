@@ -267,10 +267,20 @@ class Program
                     Console.Write("Search name: ");
                     string keyword = Console.ReadLine().ToLower();
 
+                    bool foundProduct = false;
+
                     foreach (var p in products)
                     {
                         if (p.Name.ToLower().Contains(keyword))
+                        {
                             p.DisplayProduct();
+                            foundProduct = true;
+                        }
+                    }
+
+                    if (!foundProduct)
+                    {
+                        Console.WriteLine("Product does not exist.");
                     }
                     break;
 
