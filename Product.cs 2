@@ -1,0 +1,38 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace Nakakalito;
+
+public class Product
+{
+    public int Id;
+    public string Name;
+    public double Price;
+    public int RemainingStock;
+    public string Category;
+
+    public Product(int id, string name, double price, int stock, string category)
+    {
+        Id = id;
+        Name = name;
+        Price = price;
+        RemainingStock = stock;
+        Category = category;
+    }
+
+    public void DisplayProduct()
+    {
+        Console.WriteLine($"{Id}. {Name} - ₱{Price} (Stock: {RemainingStock}) [{Category}]");
+    }
+
+    public bool HasEnoughStock(int qty)
+    {
+        return qty <= RemainingStock;
+    }
+
+    public void DeductStock(int qty)
+    {
+        RemainingStock -= qty;
+    }
+}

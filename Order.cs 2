@@ -1,0 +1,17 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace Nakakalito;
+
+public class Order
+{
+    public int ReceiptNo;
+    public double FinalTotal;
+
+    public Order(int receiptNo, double total)
+    {
+        ReceiptNo = receiptNo;
+        FinalTotal = total;
+    }
+}
