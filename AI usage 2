@@ -1,9 +1,9 @@
 Which part of the project you used AI for?
-Some of the if statements and for loops in the case 2 and case 8.
+In the product class and Cart item mainly 
+because I was stuck and needed guidance.
 What prompts/question you asked?
-New terms (property) such as DateTime.Now which is used in receipts and methods like DisplayProduct(), HasEnoughStock(), DeductStock() and  GetSubtotal().
+Provide suggestions and explain their values.
 What you changed or improved after using AI?
-I made AI search some bugs at the project and I fixed them for example; if the user enters a negative number in the payment it will total to 0.
-Total: 2000
-Payment: -2900
-Change: 900
+After using AI, the suggestion of AI was useful 
+because it detects bugs that I am personally unaware of at that time 
+and improves my knowledge about new terms.
